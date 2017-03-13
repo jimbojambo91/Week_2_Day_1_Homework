@@ -78,3 +78,46 @@ class SportsTeam
   # end
 end
 
+class Library
+  attr_accessor :books
+
+  def initialize(books)
+    @books = books
+  end
+
+  def list_books
+    return @books
+  end
+
+  def list_book_by_title(title)
+    for book in @books
+      if title == book[:title]
+        return book
+      end
+    end
+    return "Book does not exist"
+  end
+
+def list_rental_deets_by_title(title)
+  for book in @books
+    if title == book[:title]
+      return book[:rental_details]
+    end
+  end
+  return "Book does not exist"
+end
+
+def add_new_book(title)
+  @books << {title: title, rental_details: { student_name:"", date: ""}}
+end
+
+def change_rental_deets(book_name, name, date)
+  for book in @books
+    if book_name == book[:title]
+      book[:rental_details][:student_name] = name
+      book[:rental_details][:date] = date
+    end
+  end
+end
+
+end

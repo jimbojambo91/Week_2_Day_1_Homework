@@ -84,3 +84,58 @@ class TestSportsTeam < MiniTest::Test
     assert_equal(0, @test_team.points)
   end
 end
+
+class TestLibrary < MiniTest::Test
+
+  def setup
+    @test_library = Library.new([
+    { 
+      title: "lord_of_the_rings",
+      rental_details: { 
+       student_name: "Jeff", 
+       date: "01/12/16"
+      }
+    },
+  { 
+    title: "catcher_in_the_rye",
+    rental_details: { 
+     student_name: "Steve", 
+     date: "10/12/16"
+    }
+  },
+  { 
+    title: "harry_potter",
+    rental_details: { 
+     student_name: "Lando", 
+     date: "25/12/16"
+    }
+  }])
+  end
+
+  def test_list_books
+    result = @test_library.list_books
+    assert_equal(@test_library.books, result)
+
+  end
+
+def test_list_book_by_title
+  result = @test_library.list_book_by_title("harry_potter")
+  assert_equal({title: "harry_potter",rental_details: {student_name: "Lando", date: "25/12/16"}}, result)
+end
+
+def test_list_rental_deets_by_title
+  result = @test_library.list_rental_deets_by_title("harry_potter")
+  assert_equal({student_name: "Lando", date: "25/12/16"}, result)
+end
+
+def test_add_new_book 
+  @test_library.add_new_book("Twilight")
+  assert_equal({title: "Twilight", rental_details: {student_name:"", date: ""}}, @test_library.books.last)
+end
+
+def test_change_rental_deets
+  @test_library.change_rental_deets("harry_potter", "Fraser", "09/03/2017")
+  assert_equal({title: "harry_potter", rental_details: {student_name:"Fraser", date: "09/03/2017"}}, @test_library.list_book_by_title("harry_potter"))
+end
+
+end
